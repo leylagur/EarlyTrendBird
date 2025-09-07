@@ -36,3 +36,45 @@
     background-color: rgba(255, 255, 255, 0.75);
     border: 1px solid rgba(209, 213, 219, 0.3);
   }
+
+/* Dark Mode Styles */
+.dark {
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+    color: white;
+  }
+  
+  .dark .bg-white\/80 {
+    background-color: rgba(30, 30, 46, 0.8) !important;
+  }
+  
+  .dark .bg-white\/70 {
+    background-color: rgba(40, 40, 60, 0.7) !important;
+  }
+  
+  .dark .bg-white\/90 {
+    background-color: rgba(35, 35, 55, 0.9) !important;
+  }
+  
+  .dark .text-gray-800 {
+    color: #e2e8f0 !important;
+  }
+  
+  .dark .text-gray-700 {
+    color: #cbd5e1 !important;
+  }
+  
+  .dark .text-gray-600 {
+    color: #94a3b8 !important;
+  }
+  
+  .dark .bg-gray-200 {
+    background-color: #4a5568 !important;
+  }
+  
+  .dark .shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
+  }
+  
+  .dark .shadow-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
+  }

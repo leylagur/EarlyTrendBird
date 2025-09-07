@@ -1,21 +1,26 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
+import { ThemeProvider } from './context/ThemeContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Fashion Trend Tracker',
-  description: 'Girly Fashion Trend Takip Uygulaması',
+  title: 'TrendTracker',
+  description: 'Fashion Trend Takip Uygulaması',
 }
 
 export default function RootLayout({
-    children,
-  }: {
-    children: React.ReactNode
-  }) {
-    return (
-      <html lang="tr">
-        <body className={inter.className}>{children}</body>
-      </html>
-    )
-  }
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="tr">
+      <body className={inter.className}>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  )
+}

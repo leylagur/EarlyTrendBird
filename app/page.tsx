@@ -1,9 +1,14 @@
 'use client'
 
+
 import React, { useState } from 'react';
 import { Star, TrendingUp, TrendingDown, Heart, ShoppingBag, Sparkles } from 'lucide-react';
+import { useTheme } from './context/ThemeContext';
+import { Moon, Sun } from 'lucide-react';
+
 
 const FashionTrendApp = () => {
+  const { isDark, toggleTheme } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState('etekler');
   
   const categories = [
@@ -310,22 +315,33 @@ const FashionTrendApp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50">
-      {/* Header */}
-      <div className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
-              <Sparkles className="w-6 h-6 text-pink-500" />
-              Fashion Trends
-            </h1>
-            <div className="flex items-center gap-4">
-              <Heart className="w-6 h-6 text-pink-400 cursor-pointer hover:text-pink-600" />
-              <ShoppingBag className="w-6 h-6 text-purple-400 cursor-pointer hover:text-purple-600" />
-            </div>
-          </div>
+    
+    <div className={`min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 ${isDark ? 'dark' : ''}`}>
+  {/* Header */}
+  <div className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+    <div className="max-w-7xl mx-auto px-4 py-4">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+          <Sparkles className="w-6 h-6 text-pink-500" />
+          Fashion Trends
+        </h1>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+          >
+            {isDark ? (
+              <Sun className="w-6 h-6 text-yellow-500" />
+            ) : (
+              <Moon className="w-6 h-6 text-purple-400" />
+            )}
+          </button>
+          <Heart className="w-6 h-6 text-pink-400 cursor-pointer hover:text-pink-600" />
+          <ShoppingBag className="w-6 h-6 text-purple-400 cursor-pointer hover:text-purple-600" />
         </div>
       </div>
+    </div>
+  </div>
 
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Categories */}
