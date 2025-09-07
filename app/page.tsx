@@ -1,16 +1,49 @@
 'use client'
 
 
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { Star, TrendingUp, TrendingDown, Heart, ShoppingBag, Sparkles } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { Moon, Sun } from 'lucide-react';
+import { searchPhotos } from './utils/unsplash';
 
 
 const FashionTrendApp = () => {
   const { isDark, toggleTheme } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState('etekler');
+  const [trendImages, setTrendImages] = useState({});
   
+  useEffect(() => {
+    console.log('API Key:', process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY);
+    
+    const loadImages = async () => {
+      console.log('Loading images...');
+      
+      const categories = [
+        'mini skirt street style', 
+        'blazer outfit fashion', 
+        'cargo pants aesthetic', 
+        'slip dress styling'
+      ];
+      
+      try {
+        const result = await searchPhotos('mini skirt street style', 3);
+        console.log('API Result:', result);
+        setTrendImages({
+          'etekler': result,
+          'ustler': [],
+          'pantolonlar': [],
+          'elbiseler': []
+        });
+      } catch (error) {
+        console.error('Error loading images:', error);
+      }
+    };
+  
+    loadImages();
+  }, [])
+  
+
   const categories = [
     { id: 'etekler', name: 'Etekler', icon: '👗' },
     { id: 'ustler', name: 'Üstler', icon: '👚' },
@@ -316,6 +349,7 @@ const FashionTrendApp = () => {
 
   return (
     
+
     <div className={`min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 ${isDark ? 'dark' : ''}`}>
   {/* Header */}
   <div className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
@@ -417,6 +451,24 @@ const FashionTrendApp = () => {
                       </div>
                     </div>
                   )}
+                  {/* Outfit Images */}
+                    {trendImages[selectedCategory] && (
+                    <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl p-4 mt-4">
+                        <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                        📸 Outfit Önerileri
+                        </h4>
+                        <div className="grid grid-cols-3 gap-2">
+                        {trendImages[selectedCategory].slice(0, 3).map((photo, idx) => (
+                            <img
+                            key={idx}
+                            src={photo.urls.small}
+                            alt={photo.alt_description || 'Outfit'}
+                            className="w-full h-32 object-cover rounded-lg hover:scale-105 transition-transform cursor-pointer"
+                            />
+                        ))}
+                        </div>
+                    </div>
+                    )}  
                 </div>
               </div>
             ))}
